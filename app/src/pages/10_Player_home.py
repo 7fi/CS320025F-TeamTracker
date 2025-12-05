@@ -14,14 +14,19 @@ st.write('')
 st.write('')
 st.write('### What would you like to do today?')
 
-if st.button('View my team', 
+if st.button('View my stats', 
              type='primary',
              use_container_width=True):
-  st.switch_page('pages/10_Player_home.py')
+  st.switch_page('pages/12_Player_stats.py')
 
 if st.button('View my profile', 
              type='primary',
              use_container_width=True):
-  st.switch_page('pages/10_Player_home.py')
+  st.switch_page('pages/11_Player_profile.py')
+
+if st.button('View my team', 
+             type='primary',
+             use_container_width=True):
+  st.switch_page('pages/50_Team_desc.py')
 
 st.write("Add upcoming events here?")

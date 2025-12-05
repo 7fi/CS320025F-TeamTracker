@@ -6,7 +6,6 @@ from flask import current_app
 # Create a Blueprint for NGO routes
 teams = Blueprint("teams", __name__)
 
-
 # Get team info by id
 # Example: /teams/1/
 @teams.route("/", methods=["GET"])
@@ -89,7 +88,7 @@ def get_all_team_coaches(teamID):
 
 # Get all analysts on a team
 # Example: /teams/1/
-@teams.route("/<int:teamID>/analyst", methods=["GET"])
+@teams.route("/<int:teamID>/analysts", methods=["GET"])
 def get_all_team_analysts(teamID):
     try:
         cursor = db.get_db().cursor()
@@ -107,7 +106,6 @@ def get_all_team_analysts(teamID):
         return jsonify(analysts), 200
     except Error as e:
         return jsonify({"error": str(e)}), 500
-      
       
       
 # Get all admins on a team
@@ -128,5 +126,27 @@ def get_all_team_admins(teamID):
         cursor.close()
 
         return jsonify(admins), 200
+    except Error as e:
+        return jsonify({"error": str(e)}), 500
+      
+      
+# Get all events of a team
+# Example: /teams/1/
+@teams.route("/<int:teamID>/events", methods=["GET"])
+def get_all_team_events(teamID):
+    try:
+        cursor = db.get_db().cursor()
+
+        # Check if team exists
+        cursor.execute("SELECT * FROM Team WHERE teamID = %s;", (teamID,))
+        if not cursor.fetchone():
+            return jsonify({"error": "Team not found"}), 404
+
+        # Get all projects for the Team
+        cursor.execute("SELECT * FROM Event WHERE teamID = %s;", (teamID,))
+        events = cursor.fetchall()
+        cursor.close()
+
+        return jsonify(events), 200
     except Error as e:
         return jsonify({"error": str(e)}), 500

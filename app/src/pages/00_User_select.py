@@ -25,23 +25,26 @@ playerNames = playerNames.json()
   
 playerNames = [p['name'] for p in playerNames]
 
+st.write("Players:")
+
 for playerName in playerNames:
   if st.button(f"Act as {playerName}, a College Soccer Player", 
                 type = 'primary', 
                 use_container_width=True):
     st.session_state['authenticated'] = True
     st.session_state['role'] = 'player'
-    st.session_state['first_name'] = playerNames
+    st.session_state['first_name'] = playerName
     st.switch_page('pages/10_Player_home.py')
 
 
-
-coachNames = requests.get(f"http://web-api:4000/teams/{st.session_state['teamID']}/players")
+coachNames = requests.get(f"http://web-api:4000/teams/{st.session_state['teamID']}/coaches")
 logger.info(st.session_state['teamID'])
 logger.info(coachNames)
 coachNames = coachNames.json()
   
 coachNames = [p['name'] for p in coachNames]
+
+st.write("Coaches:")
 
 for coachName in coachNames:
   if st.button(f'Act as {coachName}, a Team Coach', 
@@ -53,21 +56,34 @@ for coachName in coachNames:
       st.switch_page('pages/20_Coach_home.py')
 
 
-analysts = []
+analystNames = requests.get(f"http://web-api:4000/teams/{st.session_state['teamID']}/analysts")
+logger.info(st.session_state['teamID'])
+logger.info(analystNames)
+analystNames = analystNames.json()
+  
+analystNames = [p['name'] for p in analystNames]
 
+st.write("Analysts:")
 
-if st.button('Act as Ben, a Team Analyst/Assistant Coach', 
-            type = 'primary', 
-            use_container_width=True):
-    st.session_state['authenticated'] = True
-    st.session_state['role'] = 'analyst'
-    st.session_state['first_name'] = 'Ben'
-    st.switch_page('pages/30_Analyst_home.py')
+for analystName in analystNames:
+  if st.button(f'Act as {analystName}, a Team Analyst/Assistant Coach', 
+              type = 'primary', 
+              use_container_width=True):
+      st.session_state['authenticated'] = True
+      st.session_state['role'] = 'analyst'
+      st.session_state['first_name'] = analystName
+      st.switch_page('pages/30_Analyst_home.py')
 
-admins = ['Admin']
+adminNames = requests.get(f"http://web-api:4000/teams/{st.session_state['teamID']}/admins")
+logger.info(st.session_state['teamID'])
+logger.info(adminNames)
+adminNames = adminNames.json()
+  
+adminNames = [p['name'] for p in adminNames]
 
+st.write("Admins:")
 
-for adminName in admins:
+for adminName in adminNames:
     if st.button(f'Act as {adminName} a Team Admin', 
                 type = 'primary', 
                 use_container_width=True):

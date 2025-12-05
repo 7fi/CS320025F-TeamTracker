@@ -14,7 +14,7 @@ st.write('')
 st.write('')
 st.write('### What would you like to do today?')
 
-if st.button('View my team', 
+if st.button('View past analysis', 
              type='primary',
              use_container_width=True):
   st.switch_page('pages/20_Coach_home.py')
