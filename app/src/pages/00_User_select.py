@@ -15,12 +15,19 @@ st.write('#### HI! As which user would you like to log in?')
 # functionality, we put a button on the screen that the user 
 # can click to MIMIC logging in as that mock user. 
 
-if st.button("Act as Mark, a College Soccer Player", 
-            type = 'primary', 
-            use_container_width=True):
+# TODO: get names from api
+playerNames = ['Marc', 'Carter', 'Freddy']
+coaches = ['Marc', 'Carter', 'Freddy']
+analysts = []
+admins = ['Admin']
+
+for playerName in playerNames:
+  if st.button(f"Act as {playerName}, a College Soccer Player", 
+                type = 'primary', 
+                use_container_width=True):
     st.session_state['authenticated'] = True
     st.session_state['role'] = 'player'
-    st.session_state['first_name'] = 'Mark'
+    st.session_state['first_name'] = playerNames
     st.switch_page('pages/10_Player_home.py')
 
 if st.button('Act as John, a Team Coach', 
@@ -39,10 +46,11 @@ if st.button('Act as Ben, a Team Analyst/Assistant Coach',
     st.session_state['first_name'] = 'Ben'
     st.switch_page('pages/30_Analyst_home.py')
 
-if st.button('Act as a Team Admin', 
-            type = 'primary', 
-            use_container_width=True):
-    st.session_state['authenticated'] = True
-    st.session_state['role'] = 'admin'
-    st.session_state['first_name'] = 'Admin'
-    st.switch_page('pages/40_Admin_home.py')
+for adminName in admins:
+    if st.button(f'Act as {adminName} a Team Admin', 
+                type = 'primary', 
+                use_container_width=True):
+        st.session_state['authenticated'] = True
+        st.session_state['role'] = 'admin'
+        st.session_state['first_name'] = adminName
+        st.switch_page('pages/40_Admin_home.py')

@@ -1,3 +1,4 @@
+import requests
 ##################################################
 # This is the main/entry-point file for the 
 # sample application for your project
@@ -40,7 +41,10 @@ st.write('\n\n')
 st.write('Select a team:')
 
 #TODO: Should be getting from db instead
-teams = ["Northeastern"]
+
+teams = requests.get(f"http://web-api:4000/teams/")
+logger.info(teams)
+teams = teams.json()
 
 for team in teams:
   if st.button(team, 
