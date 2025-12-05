@@ -43,12 +43,11 @@ st.write('Select a team:')
 #TODO: Should be getting from db instead
 
 teams = requests.get(f"http://web-api:4000/teams/")
-logger.info(teams)
 teams = teams.json()
 
 for team in teams:
-  if st.button(team, 
+  if st.button(team['teamName'],
             type = 'primary', 
             use_container_width=True):
-    st.session_state['teamID'] = team
+    st.session_state['teamID'] = team['teamID']
     st.switch_page('pages/00_User_select.py')

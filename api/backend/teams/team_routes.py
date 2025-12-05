@@ -15,7 +15,7 @@ def get_all_teams():
         cursor = db.get_db().cursor()
 
         # Get all projects for the Team
-        cursor.execute("SELECT teamID FROM Teams")
+        cursor.execute("SELECT * FROM Team")
         teams = cursor.fetchall()
         cursor.close()
 
@@ -32,15 +32,101 @@ def get_team_by_id(teamID):
         cursor = db.get_db().cursor()
 
         # Check if team exists
-        cursor.execute("SELECT * FROM Teams WHERE teamID = %s", (teamID,))
+        cursor.execute("SELECT * FROM Team WHERE teamID = %s", (teamID,))
         if not cursor.fetchone():
             return jsonify({"error": "Team not found"}), 404
 
         # Get all projects for the Team
-        cursor.execute("SELECT * FROM Teams WHERE teamID = %s", (teamID,))
+        cursor.execute("SELECT * FROM Team WHERE teamID = %s", (teamID,))
         teams = cursor.fetchall()
         cursor.close()
 
         return jsonify(teams), 200
+    except Error as e:
+        return jsonify({"error": str(e)}), 500
+
+# Get all players on a team
+# Example: /teams/1/
+@teams.route("/<int:teamID>/players", methods=["GET"])
+def get_all_team_players(teamID):
+    try:
+        cursor = db.get_db().cursor()
+
+        # Check if team exists
+        cursor.execute("SELECT * FROM Team WHERE teamID = %s;", (teamID,))
+        if not cursor.fetchone():
+            return jsonify({"error": "Team not found"}), 404
+
+        # Get all projects for the Team
+        cursor.execute("SELECT * FROM Players WHERE teamID = %s;", (teamID,))
+        players = cursor.fetchall()
+        cursor.close()
+
+        return jsonify(players), 200
+    except Error as e:
+        return jsonify({"error": str(e)}), 500
+
+# Get all coaches on a team
+# Example: /teams/1/
+@teams.route("/<int:teamID>/coaches", methods=["GET"])
+def get_all_team_coaches(teamID):
+    try:
+        cursor = db.get_db().cursor()
+
+        # Check if team exists
+        cursor.execute("SELECT * FROM Team WHERE teamID = %s;", (teamID,))
+        if not cursor.fetchone():
+            return jsonify({"error": "Team not found"}), 404
+
+        # Get all projects for the Team
+        cursor.execute("SELECT * FROM Coach WHERE teamID = %s;", (teamID,))
+        players = cursor.fetchall()
+        cursor.close()
+
+        return jsonify(players), 200
+    except Error as e:
+        return jsonify({"error": str(e)}), 500
+
+# Get all analysts on a team
+# Example: /teams/1/
+@teams.route("/<int:teamID>/analyst", methods=["GET"])
+def get_all_team_analysts(teamID):
+    try:
+        cursor = db.get_db().cursor()
+
+        # Check if team exists
+        cursor.execute("SELECT * FROM Team WHERE teamID = %s;", (teamID,))
+        if not cursor.fetchone():
+            return jsonify({"error": "Team not found"}), 404
+
+        # Get all projects for the Team
+        cursor.execute("SELECT * FROM Analyst p WHERE teamID = %s;", (teamID,))
+        analysts = cursor.fetchall()
+        cursor.close()
+
+        return jsonify(analysts), 200
+    except Error as e:
+        return jsonify({"error": str(e)}), 500
+      
+      
+      
+# Get all admins on a team
+# Example: /teams/1/
+@teams.route("/<int:teamID>/admins", methods=["GET"])
+def get_all_team_admins(teamID):
+    try:
+        cursor = db.get_db().cursor()
+
+        # Check if team exists
+        cursor.execute("SELECT * FROM Team WHERE teamID = %s;", (teamID,))
+        if not cursor.fetchone():
+            return jsonify({"error": "Team not found"}), 404
+
+        # Get all projects for the Team
+        cursor.execute("SELECT * FROM Admin WHERE teamID = %s;", (teamID,))
+        admins = cursor.fetchall()
+        cursor.close()
+
+        return jsonify(admins), 200
     except Error as e:
         return jsonify({"error": str(e)}), 500

@@ -39,7 +39,6 @@ CREATE TABLE IF NOT EXISTS Players
    jerseyNumber  INTEGER,
    teamID        INTEGER NOT NULL,
 
-
    FOREIGN KEY (teamID)
        REFERENCES Team(teamID)
        ON UPDATE CASCADE
