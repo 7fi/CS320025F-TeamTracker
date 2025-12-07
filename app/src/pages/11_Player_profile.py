@@ -10,11 +10,12 @@ st.set_page_config(layout = 'wide')
 # Show appropriate sidebar links for the role of the currently logged in user
 SideBarLinks()
 
-playerInfo = requests.get(f"http://web-api:4000/players/{st.session_state['playerID']}").json()
-logger.log(playerInfo)
+playerInfo = requests.get(f"http://web-api:4000/players/{st.session_state['playerID']}")
+playerInfo = playerInfo.json()
+logger.info(playerInfo)
 
 
-st.title(f"{st.session_state['first_name']}")
+st.title(f"#{playerInfo['jerseyNumber']} {playerInfo['name']} {playerInfo['gradYear']}")
 st.write('')
-st.write('')
-st.write('### Here is his Profile!')
+st.write(f"{playerInfo['position']} on {playerInfo['teamName']}")
+st.write(playerInfo['phoneNumber'])

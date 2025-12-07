@@ -6,12 +6,12 @@ from flask import current_app
 players = Blueprint("players", __name__)
 
 # Get details of a specific player
-@players.route("/players/<int:playerID>", methods=["GET"])
+@players.route("/<int:playerID>", methods=["GET"])
 def get_player(playerID):
     try:
         cursor = db.get_db().cursor()
 
-        cursor.execute("SELECT * FROM Players WHERE playerID = %s", (playerID,))
+        cursor.execute("SELECT * FROM Players p JOIN Team t ON p.teamID = t.teamID WHERE p.playerID = %s", (playerID,))
         player = cursor.fetchone()
 
         if not player:
@@ -24,7 +24,7 @@ def get_player(playerID):
         return jsonify({"error": str(e)}), 500
 
 # Create a new player
-@players.route("/players/<int:playerID>", methods=["POST"])
+@players.route("/<int:playerID>", methods=["POST"])
 def create_player(playerID):
     try:
         data = request.get_json()
@@ -59,7 +59,7 @@ def create_player(playerID):
         return jsonify({"error": str(e)}), 500
 
 # Update an existing player's information
-@players.route("/players/<int:playerID>", methods=["PUT"])
+@players.route("/<int:playerID>", methods=["PUT"])
 def update_player(playerID):
     try:
         data = request.get_json()
@@ -92,7 +92,7 @@ def update_player(playerID):
         return jsonify({"error": str(e)}), 500
     
 # Gets comments for a specific player
-@players.route("/players/<int:playerID>/comments", methods=["GET"])
+@players.route("/<int:playerID>/comments", methods=["GET"])
 def get_player_comments(playerID):
     try:
         cursor = db.get_db().cursor()
@@ -113,7 +113,7 @@ def get_player_comments(playerID):
         return jsonify({"error": str(e)}), 500
     
 # Add a comment for a specific player
-@players.route("/players/<int:playerID>/comments", methods=["POST"])
+@players.route("/<int:playerID>/comments", methods=["POST"])
 def add_player_comment(playerID):
     try:
         data = request.get_json()
@@ -141,7 +141,7 @@ def add_player_comment(playerID):
         return jsonify({"error": str(e)}), 500
     
 # Return list of all injuries for a specific player
-@players.route("/players/<int:playerID>/injuries", methods=["GET"])
+@players.route("/<int:playerID>/injuries", methods=["GET"])
 def get_player_injuries(playerID):
     try:
         cursor = db.get_db().cursor()
@@ -162,7 +162,7 @@ def get_player_injuries(playerID):
         return jsonify({"error": str(e)}), 500
     
 # Add new injury report for a specific player
-@players.route("/players/<int:playerID>/injuries", methods=["POST"])
+@players.route("/<int:playerID>/injuries", methods=["POST"])
 def add_player_injury(playerID):
     try:
         data = request.get_json()
@@ -200,7 +200,7 @@ def add_player_injury(playerID):
         return jsonify({"error": str(e)}), 500
     
 # Update details of existing injury report for a specific player
-@players.route("/players/<int:playerID>/injuries", methods=["PUT"])
+@players.route("/<int:playerID>/injuries", methods=["PUT"])
 def update_player_injury(playerID):
     try:
         data = request.get_json()
@@ -244,7 +244,7 @@ def update_player_injury(playerID):
         return jsonify({"error": str(e)}), 500
     
 # Delete injury report for a specific player (only used when injuury accidently added)
-@players.route("/players/<int:playerID>/injuries", methods=["DELETE"])
+@players.route("/<int:playerID>/injuries", methods=["DELETE"])
 def delete_player_injury(playerID):
     try:
         data = request.get_json()
