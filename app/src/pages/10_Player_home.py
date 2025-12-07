@@ -4,7 +4,7 @@ import requests
 
 import streamlit as st
 from modules.nav import SideBarLinks
-import datetime
+from datetime import datetime, timezone
 
 st.set_page_config(layout = 'wide')
 
@@ -29,17 +29,17 @@ if st.button('View my profile',
 if st.button('View my team', 
              type='primary',
              use_container_width=True):
-  st.switch_page('pages/50_Team_desc.py')
+  st.switch_page('pages/50_Team_page.py')
 
-st.write("### Your next events: ")
 
 events = requests.get(f"http://web-api:4000/events/player/{st.session_state['playerID']}")
 events = events.json()
 logger.info(events)
 
-from datetime import datetime, timezone
-for event in events: 
-  s = event['dateTime']
-  dt = datetime.strptime(s, "%a, %d %b %Y %H:%M:%S %Z").replace(tzinfo=timezone.utc)
-  st.write(f"##### {event['title']}")
-  st.write(f"**{event['location']}** on {dt.date()} at {dt.time()}")
+if(len(events) > 0):
+  st.write("### Your next events: ")
+  for event in events: 
+    s = event['dateTime']
+    dt = datetime.strptime(s, "%a, %d %b %Y %H:%M:%S %Z").replace(tzinfo=timezone.utc)
+    st.write(f"##### {event['title']}")
+    st.write(f"**{event['location']}** on {dt.date()} at {dt.time()}")

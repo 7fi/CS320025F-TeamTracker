@@ -9,6 +9,7 @@ from backend.teams.team_routes import teams
 from backend.events.events_routes import events
 from backend.strategy.strategy_routes import strategy
 from backend.players.player_routes import players
+from backend.stats.stat_routes import stats
 
 def create_app():
     app = Flask(__name__)
@@ -54,6 +55,7 @@ def create_app():
     app.register_blueprint(events, url_prefix="/events")
     app.register_blueprint(strategy, url_prefix="/strategy")
     app.register_blueprint(players, url_prefix="/players")
+    app.register_blueprint(stats, url_prefix="/stats")
 
     # Don't forget to return the app object
     return app
