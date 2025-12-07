@@ -32,7 +32,7 @@ if st.button('View my team',
   st.switch_page('pages/50_Team_page.py')
 
 
-events = requests.get(f"http://web-api:4000/events/player/{st.session_state['playerID']}")
+events = requests.get(f"http://web-api:4000/events/player/{st.session_state['userID']}")
 events = events.json()
 logger.info(events)
 

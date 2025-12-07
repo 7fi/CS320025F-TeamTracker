@@ -13,7 +13,7 @@ SideBarLinks()
 st.title(f"Statistics of {st.session_state['first_name']}!")
 st.write('')
 
-stats = requests.get(f"http://web-api:4000/stats/{st.session_state['playerID']}")
+stats = requests.get(f"http://web-api:4000/stats/{st.session_state['userID']}")
 stats = stats.json()
 logger.info(stats)
 

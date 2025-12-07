@@ -290,13 +290,13 @@ VALUES ('Ben Carter', 'ben.c@cambridgecity.com', '617-555-9999', 3);
 
 # Coach 
 INSERT INTO Coach (name, email, phoneNumber, teamID)
-VALUES ('Coach Riley', 'riley@northeastern.edu', '617-555-1010', 1);
+VALUES ('Riley', 'riley@northeastern.edu', '617-555-1010', 1);
 
 INSERT INTO Coach (name, email, phoneNumber, teamID)
-VALUES ('Coach Mills', 'mills@bostonunited.com', '617-555-2020', 2);
+VALUES ('Mills', 'mills@bostonunited.com', '617-555-2020', 2);
 
 INSERT INTO Coach (name, email, phoneNumber, teamID)
-VALUES ('Coach Alvarez', 'alvarez@cambridgecity.com', '617-555-3030', 3);
+VALUES ('Alvarez', 'alvarez@cambridgecity.com', '617-555-3030', 3);
 
 # Strategy 
 INSERT INTO Strategy (formation, coachID) VALUES ('4-4-2', 1);

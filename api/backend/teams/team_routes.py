@@ -37,7 +37,7 @@ def get_team_by_id(teamID):
 
         # Get all projects for the Team
         cursor.execute("SELECT * FROM Team WHERE teamID = %s", (teamID,))
-        teams = cursor.fetchall()
+        teams = cursor.fetchone()
         cursor.close()
 
         return jsonify(teams), 200

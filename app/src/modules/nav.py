@@ -13,6 +13,8 @@ def HomeNav():
 def AboutPageNav():
     st.sidebar.page_link("pages/60_About.py", label="About", icon="🧠")
 
+def TeamNav():
+    st.sidebar.page_link("pages/50_Team_page.py", label='Team', icon="👥")
 ### ------ Player Role ------
 
 def PlayerHomePageNav():
@@ -24,8 +26,14 @@ def ProfilePageNav():
 def PlayerStatsNav():
     st.sidebar.page_link("pages/12_Player_stats.py", label='Stats', icon="📈")
     
-def PlayerTeamNav():
-    st.sidebar.page_link("pages/50_Team_page.py", label='Team', icon="👥")
+
+# ---- Coach --------
+def CoachHomePageNav():
+    st.sidebar.page_link("pages/20_Coach_home.py", label='Home', icon="🏠")
+    
+def CoachProfilePageNav():
+    st.sidebar.page_link("pages/21_Coach_profile.py", label='Profile', icon="👤")
+    
 
 
 def SideBarLinks(show_home=False):
@@ -51,9 +59,14 @@ def SideBarLinks(show_home=False):
         # Show World Bank Link and Map Demo Link if the user is a political strategy advisor role.
         if st.session_state["role"] == "player":
             PlayerHomePageNav()
-            PlayerTeamNav()
+            TeamNav()
             ProfilePageNav()
             PlayerStatsNav()
+            
+        if st.session_state["role"] == "coach":
+            CoachHomePageNav()
+            CoachProfilePageNav()
+            TeamNav()
 
     # Always show the About page at the bottom of the list of links
     AboutPageNav()

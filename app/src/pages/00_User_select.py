@@ -31,8 +31,8 @@ for player in players:
                 use_container_width=True):
     st.session_state['authenticated'] = True
     st.session_state['role'] = 'player'
-    st.session_state['playerID'] = player['playerID']
-    st.session_state['selected_playerID'] = player['playerID']
+    st.session_state['userID'] = player['playerID']
+    st.session_state['selected_ID'] = player['playerID']
     st.session_state['first_name'] = player['name']
     st.switch_page('pages/10_Player_home.py')
 
@@ -42,17 +42,18 @@ logger.info(st.session_state['teamID'])
 logger.info(coachNames)
 coachNames = coachNames.json()
 
-coachNames = [p['name'] for p in coachNames]
 
 st.write("Coaches:")
 
-for coachName in coachNames:
-  if st.button(f'Act as {coachName}, a Team Coach', 
+for coach in coachNames:
+  if st.button(f"Act as {coach['name']}, a Team Coach", 
               type = 'primary', 
               use_container_width=True):
       st.session_state['authenticated'] = True
       st.session_state['role'] = 'coach'
-      st.session_state['first_name'] = coachName
+      st.session_state['userID'] = coach['coachID']
+      st.session_state['selected_ID'] = coach['coachID']
+      st.session_state['first_name'] = coach['name']
       st.switch_page('pages/20_Coach_home.py')
 
 

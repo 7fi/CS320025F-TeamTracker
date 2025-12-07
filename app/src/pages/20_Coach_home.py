@@ -17,7 +17,7 @@ st.write('### What would you like to do today?')
 if st.button('View my profile', 
              type='primary',
              use_container_width=True):
-  st.switch_page('pages/20_Coach_home.py')
+  st.switch_page('pages/21_Coach_profile.py')
 
 if st.button('View my team', 
              type='primary',
