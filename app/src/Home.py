@@ -44,10 +44,22 @@ st.write('Select a team:')
 
 teams = requests.get(f"http://web-api:4000/teams/")
 teams = teams.json()
+    
+team_options = {team["teamName"]: team for team in teams}
 
-for team in teams:
-  if st.button(team['teamName'],
-            type = 'primary', 
-            use_container_width=True):
-    st.session_state['teamID'] = team['teamID']
-    st.switch_page('pages/00_User_select.py')
+selected_name = st.selectbox(
+    "Choose a team to login as:",
+    list(team_options.keys()),
+    index=None,
+    placeholder="Select a team..."
+)
+
+if st.button("Select Team", type="primary", use_container_width=True):
+    if selected_name is None:
+        st.warning("Please select a team.")
+    else:
+        team = team_options[selected_name]
+
+        st.session_state['teamID'] = team['teamID']
+
+        st.switch_page("pages/00_User_select.py")

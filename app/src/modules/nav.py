@@ -34,7 +34,15 @@ def CoachHomePageNav():
 def CoachProfilePageNav():
     st.sidebar.page_link("pages/21_Coach_profile.py", label='Profile', icon="👤")
     
+    
+# ---- Analyst ----
 
+def AnalystHomePageNav():
+    st.sidebar.page_link("pages/30_Analyst_home.py", label='Home', icon="🏠")
+    
+def AnalystProfilePageNav():
+    st.sidebar.page_link("pages/31_Analyst_profile.py", label='Profile', icon="👤")
+    
 
 def SideBarLinks(show_home=False):
     """
@@ -66,6 +74,11 @@ def SideBarLinks(show_home=False):
         if st.session_state["role"] == "coach":
             CoachHomePageNav()
             CoachProfilePageNav()
+            TeamNav()
+            
+        if st.session_state["role"] == "analyst":
+            AnalystHomePageNav()
+            AnalystProfilePageNav()
             TeamNav()
 
     # Always show the About page at the bottom of the list of links

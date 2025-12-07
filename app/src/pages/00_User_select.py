@@ -23,72 +23,104 @@ logger.info(st.session_state['teamID'])
 logger.info(players)
 players = players.json()
 
-st.write("Players:")
+player_options = {p["name"]: p for p in players}
 
-for player in players:
-  if st.button(f"Act as {player['name']}, a College Soccer Player", 
-                type = 'primary', 
-                use_container_width=True):
-    st.session_state['authenticated'] = True
-    st.session_state['role'] = 'player'
-    st.session_state['userID'] = player['playerID']
-    st.session_state['selected_ID'] = player['playerID']
-    st.session_state['first_name'] = player['name']
-    st.switch_page('pages/10_Player_home.py')
+selected_name = st.selectbox(
+    "Choose a player to act as:",
+    list(player_options.keys()),
+    index=None,
+    placeholder="Select a player..."
+)
+
+if st.button("Select Player", type="primary", use_container_width=True):
+    if selected_name is None:
+        st.warning("Please select a player.")
+    else:
+        player = player_options[selected_name]
+
+        st.session_state['authenticated'] = True
+        st.session_state['role'] = 'player'
+        st.session_state['userID'] = player["playerID"]
+        st.session_state['selected_ID'] = player["playerID"]
+        st.session_state['first_name'] = player["name"]
+
+        st.switch_page("pages/10_Player_home.py")
 
 
-coachNames = requests.get(f"http://web-api:4000/teams/{st.session_state['teamID']}/coaches")
+coaches = requests.get(f"http://web-api:4000/teams/{st.session_state['teamID']}/coaches")
 logger.info(st.session_state['teamID'])
-logger.info(coachNames)
-coachNames = coachNames.json()
+logger.info(coaches)
+coaches = coaches.json()
 
+coach_options = {p["name"]: p for p in coaches}
 
-st.write("Coaches:")
+selected_name = st.selectbox(
+    "Choose a coach to act as:",
+    list(coach_options.keys()),
+    index=None,
+    placeholder="Select a coach..."
+)
 
-for coach in coachNames:
-  if st.button(f"Act as {coach['name']}, a Team Coach", 
-              type = 'primary', 
-              use_container_width=True):
-      st.session_state['authenticated'] = True
-      st.session_state['role'] = 'coach'
-      st.session_state['userID'] = coach['coachID']
-      st.session_state['selected_ID'] = coach['coachID']
-      st.session_state['first_name'] = coach['name']
-      st.switch_page('pages/20_Coach_home.py')
+if st.button("Select coach", type="primary", use_container_width=True):
+    if selected_name is None:
+        st.warning("Please select a coach.")
+    else:
+        coach = coach_options[selected_name]
 
+        st.session_state['authenticated'] = True
+        st.session_state['role'] = 'coach'
+        st.session_state['userID'] = coach['coachID']
+        st.session_state['selected_ID'] = coach['coachID']
+        st.session_state['first_name'] = coach['name']
+        st.switch_page('pages/20_Coach_home.py')
 
-analystNames = requests.get(f"http://web-api:4000/teams/{st.session_state['teamID']}/analysts")
+analysts = requests.get(f"http://web-api:4000/teams/{st.session_state['teamID']}/analysts")
 logger.info(st.session_state['teamID'])
-logger.info(analystNames)
-analystNames = analystNames.json()
+logger.info(analysts)
+analysts = analysts.json()
 
-analystNames = [p['name'] for p in analystNames]
+analyst_options = {p["name"]: p for p in analysts}
 
-st.write("Analysts:")
+selected_name = st.selectbox(
+    "Choose a analyst to act as:",
+    list(analyst_options.keys()),
+    index=None,
+    placeholder="Select a analyst..."
+)
 
-for analystName in analystNames:
-  if st.button(f'Act as {analystName}, a Team Analyst/Assistant Coach', 
-              type = 'primary', 
-              use_container_width=True):
-      st.session_state['authenticated'] = True
-      st.session_state['role'] = 'analyst'
-      st.session_state['first_name'] = analystName
-      st.switch_page('pages/30_Analyst_home.py')
+if st.button("Select analyst", type="primary", use_container_width=True):
+    if selected_name is None:
+        st.warning("Please select a analyst.")
+    else:
+        analyst = analyst_options[selected_name]
 
-adminNames = requests.get(f"http://web-api:4000/teams/{st.session_state['teamID']}/admins")
+        st.session_state['authenticated'] = True
+        st.session_state['role'] = 'analyst'
+        st.session_state['userID'] = analyst['analystID']
+        st.session_state['first_name'] = analyst['name']
+        st.switch_page('pages/30_Analyst_home.py')
+
+admins = requests.get(f"http://web-api:4000/teams/{st.session_state['teamID']}/admins")
 logger.info(st.session_state['teamID'])
-logger.info(adminNames)
-adminNames = adminNames.json()
-  
-adminNames = [p['name'] for p in adminNames]
+logger.info(admins)
+admins = admins.json()
 
-st.write("Admins:")
+admin_options = {p["name"]: p for p in admins}
 
-for adminName in adminNames:
-    if st.button(f'Act as {adminName} a Team Admin', 
-                type = 'primary', 
-                use_container_width=True):
+selected_name = st.selectbox(
+    "Choose a admin to act as:",
+    list(admin_options.keys()),
+    index=None,
+    placeholder="Select a admin..."
+)
+
+if st.button("Select admin", type="primary", use_container_width=True):
+    if selected_name is None:
+        st.warning("Please select a admin.")
+    else:
+        admin = admin_options[selected_name]
+
         st.session_state['authenticated'] = True
         st.session_state['role'] = 'admin'
-        st.session_state['first_name'] = adminName
+        st.session_state['first_name'] = admin['name']
         st.switch_page('pages/40_Admin_home.py')

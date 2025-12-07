@@ -23,7 +23,7 @@ logger.info(players)
 
 st.write("### Players")
 for player in players:
-  if st.button(f"#{player['jerseyNumber']} {player['name']} | {player['gradYear']} | {player['phoneNumber']}", type='tertiary'):
+  if st.button(f"#{player['jerseyNumber']} {player['name']} '{str(player['gradYear'])[-2:]} | {player['phoneNumber']}", type='tertiary'):
     st.session_state['selected_ID'] = player['playerID']
     st.switch_page('pages/11_Player_profile.py')
     
