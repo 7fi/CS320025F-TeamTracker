@@ -18,21 +18,21 @@ st.write('#### HI! As which user would you like to log in?')
 
 # TODO: get names from api
 
-playerNames = requests.get(f"http://web-api:4000/teams/{st.session_state['teamID']}/players")
+players = requests.get(f"http://web-api:4000/teams/{st.session_state['teamID']}/players")
 logger.info(st.session_state['teamID'])
-logger.info(playerNames)
-playerNames = playerNames.json()
-  
+logger.info(players)
+players = players.json()
 
 st.write("Players:")
 
-for player in playerNames:
+for player in players:
   if st.button(f"Act as {player['name']}, a College Soccer Player", 
                 type = 'primary', 
                 use_container_width=True):
     st.session_state['authenticated'] = True
     st.session_state['role'] = 'player'
     st.session_state['playerID'] = player['playerID']
+    st.session_state['selected_playerID'] = player['playerID']
     st.session_state['first_name'] = player['name']
     st.switch_page('pages/10_Player_home.py')
 
@@ -41,7 +41,7 @@ coachNames = requests.get(f"http://web-api:4000/teams/{st.session_state['teamID'
 logger.info(st.session_state['teamID'])
 logger.info(coachNames)
 coachNames = coachNames.json()
-  
+
 coachNames = [p['name'] for p in coachNames]
 
 st.write("Coaches:")
@@ -60,7 +60,7 @@ analystNames = requests.get(f"http://web-api:4000/teams/{st.session_state['teamI
 logger.info(st.session_state['teamID'])
 logger.info(analystNames)
 analystNames = analystNames.json()
-  
+
 analystNames = [p['name'] for p in analystNames]
 
 st.write("Analysts:")
