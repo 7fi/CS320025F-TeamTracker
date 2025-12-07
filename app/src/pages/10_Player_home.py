@@ -1,8 +1,10 @@
 import logging
 logger = logging.getLogger(__name__)
+import requests
 
 import streamlit as st
 from modules.nav import SideBarLinks
+import datetime
 
 st.set_page_config(layout = 'wide')
 
@@ -29,4 +31,15 @@ if st.button('View my team',
              use_container_width=True):
   st.switch_page('pages/50_Team_desc.py')
 
-st.write("Add upcoming events here?")
+st.write("### Your next events: ")
+
+events = requests.get(f"http://web-api:4000/events/player/{st.session_state['playerID']}")
+events = events.json()
+logger.info(events)
+
+from datetime import datetime, timezone
+for event in events: 
+  s = event['dateTime']
+  dt = datetime.strptime(s, "%a, %d %b %Y %H:%M:%S %Z").replace(tzinfo=timezone.utc)
+  st.write(f"##### {event['title']}")
+  st.write(f"**{event['location']}** on {dt.date()} at {dt.time()}")

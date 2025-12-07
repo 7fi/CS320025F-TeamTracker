@@ -27,7 +27,6 @@ CREATE TABLE IF NOT EXISTS Team
 
 
 
-
 DROP TABLE IF EXISTS Players;
 CREATE TABLE IF NOT EXISTS Players
 (
@@ -126,6 +125,7 @@ DROP TABLE IF EXISTS Event;
 CREATE TABLE IF NOT EXISTS Event
 (
    eventID     INTEGER PRIMARY KEY AUTO_INCREMENT,
+   title VARCHAR (150),
    location    VARCHAR(150),
    dateTime    DATETIME NOT NULL,
    teamID      INTEGER NOT NULL,
@@ -304,14 +304,14 @@ INSERT INTO Strategy (formation, coachID) VALUES ('4-3-3', 1);
 INSERT INTO Strategy (formation, coachID) VALUES ('3-5-2', 1);
 
 # Event 
-INSERT INTO Event (location, dateTime, teamID)
-VALUES ('Carter Field', '2025-11-16 14:00:00', 1);
+INSERT INTO Event (title, location, dateTime, teamID)
+VALUES ('Practice', 'Carter Field', '2025-12-16 14:00:00', 1);
 
-INSERT INTO Event (location, dateTime, teamID)
-VALUES ('Carter Field', '2025-11-18 18:30:00', 1);
+INSERT INTO Event (title, location, dateTime, teamID)
+VALUES ('Practice', 'Carter Field', '2025-12-18 18:30:00', 1);
 
-INSERT INTO Event (location, dateTime, teamID)
-VALUES ('Cambridge Center', '2025-11-20 17:00:00', 1);
+INSERT INTO Event (title, location, dateTime, teamID)
+VALUES ('Game vs BU', 'Cambridge Center', '2025-12-20 17:00:00', 1);
 
 # PlayerEvent 
 INSERT INTO PlayerEvent (eventID, playerID) VALUES (1, 1);

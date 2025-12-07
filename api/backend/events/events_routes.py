@@ -13,7 +13,7 @@ def get_all_events():
         cursor = db.get_db().cursor()
 
         # Get all events
-        cursor.execute("SELECT * FROM Events")
+        cursor.execute("SELECT * FROM Event")
         all_events = cursor.fetchall()
         cursor.close()
 
@@ -28,7 +28,7 @@ def get_event_by_id(eventID):
     try:
         cursor = db.get_db().cursor()
 
-        cursor.execute("SELECT * FROM Events WHERE eventID = %s;", (eventID,))
+        cursor.execute("SELECT * FROM Event WHERE eventID = %s;", (eventID,))
         event = cursor.fetchone()
         cursor.close()
 
@@ -56,7 +56,7 @@ def create_event():
 
         cursor = db.get_db().cursor()
         insert_query = """
-            INSERT INTO Events (teamID, dateTime, location)
+            INSERT INTO Event (teamID, dateTime, location)
             VALUES (%s, %s, %s);
         """
         cursor.execute(insert_query, (team_id, dateTime, location))
@@ -86,13 +86,13 @@ def update_event(eventID):
         cursor = db.get_db().cursor()
 
         # check event exists
-        cursor.execute("SELECT 1 FROM Events WHERE eventID = %s;", (eventID,))
+        cursor.execute("SELECT 1 FROM Event WHERE eventID = %s;", (eventID,))
         if not cursor.fetchone():
             cursor.close()
             return jsonify({"error": "Event not found"}), 404
 
         update_query = """
-            UPDATE Events
+            UPDATE Event
             SET teamID = %s,
                 dateTime = %s,
                 location = %s
@@ -114,12 +114,12 @@ def delete_event(eventID):
         cursor = db.get_db().cursor()
 
         # check event exists
-        cursor.execute("SELECT 1 FROM Events WHERE eventID = %s;", (eventID,))
+        cursor.execute("SELECT 1 FROM Event WHERE eventID = %s;", (eventID,))
         if not cursor.fetchone():
             cursor.close()
             return jsonify({"error": "Event not found"}), 404
 
-        cursor.execute("DELETE FROM Events WHERE eventID = %s;", (eventID,))
+        cursor.execute("DELETE FROM Event WHERE eventID = %s;", (eventID,))
         db.get_db().commit()
         cursor.close()
 
@@ -196,10 +196,10 @@ def un_rsvp_event(eventID):
 
 # Upcoming events for a player 
 # Example: /events/player/1/ (GET)
-@events.route("/nextup/<int:playerID>", methods=["GET"])
+@events.route("/player/<int:playerID>", methods=["GET"])
 def get_next_events_for_player(playerID):
     try:
-        cursor = db.get_db().cursor(dictionary=True)
+        cursor = db.get_db().cursor()
 
         query = """
             SELECT e.*

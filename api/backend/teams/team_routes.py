@@ -7,14 +7,14 @@ from flask import current_app
 teams = Blueprint("teams", __name__)
 
 # Get team info by id
-# Example: /teams/1/
+# Example: /teams/
 @teams.route("/", methods=["GET"])
 def get_all_teams():
     try:
         cursor = db.get_db().cursor()
 
-        # Get all projects for the Team
-        cursor.execute("SELECT * FROM Team")
+        # Get all for the Team
+        cursor.execute("SELECT teamID, teamName FROM Team")
         teams = cursor.fetchall()
         cursor.close()
 
@@ -25,7 +25,7 @@ def get_all_teams():
 
 # Get team info by id
 # Example: /teams/1/
-@teams.route("/<int:teamID>/", methods=["GET"])
+@teams.route("/<int:teamID>", methods=["GET"])
 def get_team_by_id(teamID):
     try:
         cursor = db.get_db().cursor()

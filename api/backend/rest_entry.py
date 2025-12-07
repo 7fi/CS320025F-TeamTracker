@@ -5,9 +5,10 @@ import logging
 from logging.handlers import RotatingFileHandler
 
 from backend.db_connection import db
-from backend.simple.simple_routes import simple_routes
-from backend.ngos.ngo_routes import ngos
 from backend.teams.team_routes import teams
+from backend.events.events_routes import events
+from backend.strategy.strategy_routes import strategy
+from backend.players.player_routes import players
 
 def create_app():
     app = Flask(__name__)
@@ -49,9 +50,10 @@ def create_app():
     # Register the routes from each Blueprint with the app object
     # and give a url prefix to each
     app.logger.info("create_app(): registering blueprints with Flask app object.")
-    app.register_blueprint(simple_routes)
-    app.register_blueprint(ngos, url_prefix="/ngo")
     app.register_blueprint(teams, url_prefix="/teams")
+    app.register_blueprint(events, url_prefix="/events")
+    app.register_blueprint(strategy, url_prefix="/strategy")
+    app.register_blueprint(players, url_prefix="/players")
 
     # Don't forget to return the app object
     return app

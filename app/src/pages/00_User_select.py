@@ -23,17 +23,17 @@ logger.info(st.session_state['teamID'])
 logger.info(playerNames)
 playerNames = playerNames.json()
   
-playerNames = [p['name'] for p in playerNames]
 
 st.write("Players:")
 
-for playerName in playerNames:
-  if st.button(f"Act as {playerName}, a College Soccer Player", 
+for player in playerNames:
+  if st.button(f"Act as {player['name']}, a College Soccer Player", 
                 type = 'primary', 
                 use_container_width=True):
     st.session_state['authenticated'] = True
     st.session_state['role'] = 'player'
-    st.session_state['first_name'] = playerName
+    st.session_state['playerID'] = player['playerID']
+    st.session_state['first_name'] = player['name']
     st.switch_page('pages/10_Player_home.py')
 
 
