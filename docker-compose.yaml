@@ -27,6 +27,7 @@ services:
     image: mysql:9
     container_name: mysql_db
     hostname: db
+    command: --local-infile=1
     volumes:
       - './database-files:/docker-entrypoint-initdb.d/:ro'
       - 'mysql_data:/var/lib/mysql'

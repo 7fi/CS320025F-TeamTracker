@@ -191,7 +191,7 @@ def get_ngo_projects(ngo_id):
 
 
 # Get all donors associated with a specific NGO
-# Example: /ngo/ngos/1/donors
+
 @ngos.route("/ngos/<int:ngo_id>/donors", methods=["GET"])
 def get_ngo_donors(ngo_id):
     try:
