@@ -24,12 +24,12 @@ def get_player(playerID):
         return jsonify({"error": str(e)}), 500
 
 # Create a new player
-@players.route("/<int:playerID>", methods=["POST"])
-def create_player(playerID):
+@players.route("/", methods=["POST"])
+def create_player():
     try:
         data = request.get_json()
 
-        required_fields = ["playerName", "team", "position", "age"]
+        required_fields = ["name", "teamID", "position", "jerseyNumber","phoneNumber", "gradYear"]
         for field in required_fields:
             if field not in data:
                 return jsonify({"error": f"Missing required field: {field}"}), 400
@@ -37,17 +37,18 @@ def create_player(playerID):
         cursor = db.get_db().cursor()
 
         query = """
-        INSERT INTO Players (playerID, playerName, team, position, age)
+        INSERT INTO Players (name, teamID, position, jerseyNumber, phoneNumber, gradYear)
         VALUES (%s, %s, %s, %s, %s)
         """
         cursor.execute(
             query,
             (
-                playerID,
-                data["playerName"],
-                data["team"],
+                data["name"],
+                data["teamID"],
                 data["position"],
-                data["age"],
+                data["jerseyNumber"],
+                data["phoneNumber"],
+                data["gradYear"],
             ),
         )
         db.get_db().commit()
@@ -72,7 +73,7 @@ def update_player(playerID):
 
         fields = []
         values = []
-        for field in ["playerName", "team", "position", "age"]:
+        for field in ["name", "position", "phoneNumber","gradYear", "jerseyNumber"]:
             if field in data:
                 fields.append(f"{field} = %s")
                 values.append(data[field])
@@ -90,6 +91,36 @@ def update_player(playerID):
 
     except Error as e:
         return jsonify({"error": str(e)}), 500
+    
+    
+
+# Delete an existing player
+@players.route("/<int:playerID>", methods=["DELETE"])
+def delete_player(playerID):
+    try:
+        cursor = db.get_db().cursor()
+
+        # Make sure the player exists
+        cursor.execute("SELECT * FROM Players WHERE playerID = %s", (playerID,))
+        if not cursor.fetchone():
+            return jsonify({"error": "Player not found"}), 404
+
+        # Delete player's injuries (foreign key dependencies)
+        cursor.execute("DELETE FROM Injury WHERE playerID = %s", (playerID,))
+
+        # Delete player's comments (foreign key dependencies)
+        cursor.execute("DELETE FROM Comment WHERE targetID = %s", (playerID,))
+
+        # Delete the player
+        cursor.execute("DELETE FROM Players WHERE playerID = %s", (playerID,))
+        db.get_db().commit()
+        cursor.close()
+
+        return jsonify({"message": "Player deleted successfully"}), 200
+
+    except Error as e:
+        return jsonify({"error": str(e)}), 500
+
     
 # Gets comments for a specific player
 @players.route("/<int:playerID>/comments", methods=["GET"])

@@ -150,3 +150,25 @@ def get_all_team_events(teamID):
         return jsonify(events), 200
     except Error as e:
         return jsonify({"error": str(e)}), 500
+    
+    
+# Get all events of a team
+# Example: /teams/1/
+@teams.route("/<int:teamID>/attendance", methods=["GET"])
+def get_all_team_attendance(teamID):
+    try:
+        cursor = db.get_db().cursor()
+
+        # Check if team exists
+        cursor.execute("SELECT * FROM Team WHERE teamID = %s;", (teamID,))
+        if not cursor.fetchone():
+            return jsonify({"error": "Team not found"}), 404
+
+        # Get all projects for the Team
+        cursor.execute("SELECT * FROM Event WHERE teamID = %s;", (teamID,))
+        events = cursor.fetchall()
+        cursor.close()
+
+        return jsonify(events), 200
+    except Error as e:
+        return jsonify({"error": str(e)}), 500

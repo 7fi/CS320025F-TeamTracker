@@ -18,6 +18,8 @@ st.write('#### HI! As which user would you like to log in?')
 
 # TODO: get names from api
 
+st.session_state["editing"] = {}
+
 players = requests.get(f"http://web-api:4000/teams/{st.session_state['teamID']}/players")
 logger.info(st.session_state['teamID'])
 logger.info(players)
