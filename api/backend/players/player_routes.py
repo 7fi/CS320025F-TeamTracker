@@ -151,7 +151,7 @@ def get_player_injuries(playerID):
             return jsonify({"error": "Player not found"}), 404
 
         cursor.execute(
-            "SELECT * FROM PlayerInjuries WHERE playerID = %s", (playerID,)
+            "SELECT * FROM Injury WHERE playerID = %s", (playerID,)
         )
         injuries = cursor.fetchall()
         cursor.close()
@@ -179,7 +179,7 @@ def add_player_injury(playerID):
             return jsonify({"error": "Player not found"}), 404
 
         query = """
-        INSERT INTO PlayerInjuries (playerID, injuryType, injuryDate, recoveryDate)
+        INSERT INTO Injury (playerID, type, date, recoveryDate)
         VALUES (%s, %s, %s, %s)
         """
         cursor.execute(
@@ -215,7 +215,7 @@ def update_player_injury(playerID):
             return jsonify({"error": "Player not found"}), 404
 
         cursor.execute(
-            "SELECT * FROM PlayerInjuries WHERE injuryID = %s AND playerID = %s",
+            "SELECT * FROM Injury WHERE injuryID = %s AND playerID = %s",
             (data["injuryID"], playerID),
         )
         if not cursor.fetchone():
@@ -223,9 +223,12 @@ def update_player_injury(playerID):
 
         fields = []
         values = []
+        field_mapping = {"injuryType": "type", "injuryDate": "date", "recoveryDate": "recoveryDate"}
+
         for field in ["injuryType", "injuryDate", "recoveryDate"]:
             if field in data:
-                fields.append(f"{field} = %s")
+                db_field = field_mapping[field]
+                fields.append(f"{db_field} = %s")
                 values.append(data[field])
 
         if not fields:
@@ -233,7 +236,7 @@ def update_player_injury(playerID):
 
         values.append(data["injuryID"])
         values.append(playerID)
-        query = f"UPDATE PlayerInjuries SET {', '.join(fields)} WHERE injuryID = %s AND playerID = %s"
+        query = f"UPDATE Injury SET {', '.join(fields)} WHERE injuryID = %s AND playerID = %s"
         cursor.execute(query, tuple(values))
         db.get_db().commit()
         cursor.close()
@@ -259,14 +262,14 @@ def delete_player_injury(playerID):
             return jsonify({"error": "Player not found"}), 404
 
         cursor.execute(
-            "SELECT * FROM PlayerInjuries WHERE injuryID = %s AND playerID = %s",
+            "SELECT * FROM Injury WHERE injuryID = %s AND playerID = %s",
             (data["injuryID"], playerID),
         )
         if not cursor.fetchone():
             return jsonify({"error": "Injury report not found"}), 404
 
         cursor.execute(
-            "DELETE FROM PlayerInjuries WHERE injuryID = %s AND playerID = %s",
+            "DELETE FROM Injury WHERE injuryID = %s AND playerID = %s",
             (data["injuryID"], playerID),
         )
         db.get_db().commit()
