@@ -1,6 +1,6 @@
 # Fall 2025 CS 3200 Project 
 
-# 📘 TeamTracker – Backend API
+# TeamTracker – Backend API
 
 TeamTracker is a **data-driven backend service** designed to support college soccer teams in managing rosters, events, attendance, performance statistics, injuries, strategies, and team communication—all in one platform.
 
