@@ -18,10 +18,19 @@ if st.button('View my profile',
              type='primary',
              use_container_width=True):
   st.switch_page('pages/21_Coach_profile.py')
-
+  
 if st.button('View my team', 
              type='primary',
              use_container_width=True):
     st.switch_page('pages/50_Team_page.py')
 
-st.write("Add upcoming events here?")
+if st.button('View Team Statistics',
+             type='primary',
+             use_container_width=True):
+     st.switch_page('pages/32_Analyst_team_stats.py')
+
+if st.button('View strategies', 
+                 type='primary',
+                 use_container_width=True):
+  st.switch_page('pages/22_Coach_strategy.py')
+

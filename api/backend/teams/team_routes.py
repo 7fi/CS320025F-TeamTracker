@@ -164,8 +164,7 @@ def get_all_team_attendance(teamID):
         if not cursor.fetchone():
             return jsonify({"error": "Team not found"}), 404
 
-        # Get all projects for the Team
-        cursor.execute("SELECT * FROM Event WHERE teamID = %s;", (teamID,))
+        cursor.execute("SELECT * FROM Event e JOIN PlayerEvent pe ON e.eventID = pe.eventID WHERE e.teamID = %s;", (teamID,))
         events = cursor.fetchall()
         cursor.close()
 

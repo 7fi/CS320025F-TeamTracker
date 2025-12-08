@@ -8,7 +8,7 @@ st.write("# About this App")
 
 st.markdown(
     """
-    This is a app to help track teams 
+    This is a app to help track sports teams and manage their day-to-day activities. 
     """
 )
 

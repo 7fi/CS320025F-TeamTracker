@@ -99,6 +99,7 @@ if st.button("Select analyst", type="primary", use_container_width=True):
         st.session_state['authenticated'] = True
         st.session_state['role'] = 'analyst'
         st.session_state['userID'] = analyst['analystID']
+        st.session_state['selected_ID'] = analyst['analystID']
         st.session_state['first_name'] = analyst['name']
         st.switch_page('pages/30_Analyst_home.py')
 
@@ -124,5 +125,7 @@ if st.button("Select admin", type="primary", use_container_width=True):
 
         st.session_state['authenticated'] = True
         st.session_state['role'] = 'admin'
+        st.session_state['userID'] = admin['adminID']
+        st.session_state['selected_ID'] = admin['adminID']
         st.session_state['first_name'] = admin['name']
         st.switch_page('pages/40_Admin_home.py')

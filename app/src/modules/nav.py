@@ -28,8 +28,15 @@ def PlayerStatsNav():
     
 
 # ---- Coach --------
+
 def CoachHomePageNav():
     st.sidebar.page_link("pages/20_Coach_home.py", label='Home', icon="🏠")
+    
+def CoachStrategyNav():
+    st.sidebar.page_link("pages/22_Coach_strategy.py", label='Strategies', icon="🗒️")
+    
+def CoachStatNav():
+    st.sidebar.page_link("pages/32_Analyst_team_stats.py", label='Stats', icon="📈")
     
 def CoachProfilePageNav():
     st.sidebar.page_link("pages/21_Coach_profile.py", label='Profile', icon="👤")
@@ -48,9 +55,11 @@ def AnalystProfilePageNav():
 def AdminHomePageNav():
     st.sidebar.page_link("pages/40_Admin_home.py", label='Home', icon="🏠")
     
-
-def AdminHomePageNa2v():
-    st.sidebar.page_link("pages/40_Admin_home.py", label='Home', icon="🏠")
+def AdminPlayerAddNav():
+    st.sidebar.page_link("pages/41_Admin_addPlayer.py", label='Add Player', icon="➕")
+    
+def AdminStatsNav():
+    st.sidebar.page_link("pages/42_Admin_stats.py", label='Add Stats', icon="📈")
     
     
 
@@ -77,23 +86,27 @@ def SideBarLinks(show_home=False):
         # Show World Bank Link and Map Demo Link if the user is a political strategy advisor role.
         if st.session_state["role"] == "player":
             PlayerHomePageNav()
-            TeamNav()
             ProfilePageNav()
+            TeamNav()
             PlayerStatsNav()
             
         if st.session_state["role"] == "coach":
             CoachHomePageNav()
             CoachProfilePageNav()
             TeamNav()
+            CoachStatNav()
+            CoachStrategyNav()
             
         if st.session_state["role"] == "analyst":
             AnalystHomePageNav()
             AnalystProfilePageNav()
+            CoachStatNav()
             TeamNav()
-
             
         if st.session_state['role'] == 'admin':
             AdminHomePageNav()
+            AdminPlayerAddNav()
+            AdminStatsNav()
             TeamNav()
             
 
