@@ -16,11 +16,6 @@ st.write('')
 st.write('')
 st.write('### What would you like to do today?')
 
-if st.button('View my stats', 
-             type='primary',
-             use_container_width=True):
-  st.switch_page('pages/12_Player_stats.py')
-
 if st.button('View my profile', 
              type='primary',
              use_container_width=True):
@@ -30,6 +25,12 @@ if st.button('View my team',
              type='primary',
              use_container_width=True):
   st.switch_page('pages/50_Team_page.py')
+  
+if st.button('View my stats', 
+             type='primary',
+             use_container_width=True):
+  st.switch_page('pages/12_Player_stats.py')
+
 
 
 events = requests.get(f"http://web-api:4000/events/player/{st.session_state['userID']}")

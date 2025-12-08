@@ -218,3 +218,24 @@ def get_next_events_for_player(playerID):
 
     except Error as e:
         return jsonify({"error": str(e)}), 500
+    
+@events.route("/<int:eventID>/players", methods=["GET"])
+def get_players_for_event(eventID):
+    try:
+        cursor = db.get_db().cursor()
+
+        query = """
+            SELECT p.playerID, p.name, p.jerseyNumber
+            FROM PlayerEvent pe
+            JOIN Players p ON p.playerID = pe.playerID
+            WHERE pe.eventID = %s
+        """
+
+        cursor.execute(query, (eventID,))
+        players = cursor.fetchall()
+        cursor.close()
+
+        return jsonify(players), 200
+
+    except Error as e:
+        return jsonify({"error": str(e)}), 500

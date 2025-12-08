@@ -127,7 +127,7 @@ def rsvpForEvent(eventID, value):
     if response.status_code == 200:
         st.session_state.show_success_modal = True
         st.success("Sucessfully RSVP")
-        # st.rerun()
+        st.rerun()
     else:
         st.error(
             f"Failed to rsvp: {response.json().get('error', 'Unknown error')}"
@@ -142,16 +142,26 @@ events = requests.get(f"http://web-api:4000/teams/{st.session_state['teamID']}/e
 events = events.json()
 logger.info(events)
 
+attendanceRecords = requests.get(f"http://web-api:4000/teams/{st.session_state['teamID']}/attendance")
+attendanceRecords = attendanceRecords.json()
+logger.info([e['playerID'] for e in attendanceRecords])
+
 if(len(events) > 0):
   st.write(f"### {teamInfo['teamName']}'s next events: ")
   for event in events: 
     s = event['dateTime']
     dt = datetime.strptime(s, "%a, %d %b %Y %H:%M:%S %Z").replace(tzinfo=timezone.utc)
-    st.write(f"##### {event['title']}")
-    st.write(f"**{event['location']}** on {dt.date()} at {dt.time()}")
-    
-    col1, col2, col3 = st.columns([0.1,.1,1])
+    rsvpText = ""
     if st.session_state['role'] == 'player':
+      rsvpStatus = st.session_state['userID'] in [e['playerID'] for e in attendanceRecords if e['eventID'] == event['eventID']]
+      rsvpText = "✅" if rsvpStatus else "❌"
+      rsvpText = "Going? " + rsvpText
+      
+    st.write(f"##### {event['title']}")
+    st.write(f"**{event['location']}** on {dt.date()} at {dt.time()} {rsvpText}")
+    
+    if st.session_state['role'] == 'player':
+      col1, col2, col3 = st.columns([0.1,.1,1])
       with col1:
         st.write("RSVP:")
       with col2:
