@@ -133,7 +133,7 @@ def get_player_comments(playerID):
             return jsonify({"error": "Player not found"}), 404
 
         cursor.execute(
-            "SELECT * FROM PlayerComments WHERE playerID = %s", (playerID,)
+            "SELECT * FROM Comment WHERE targetID = %s", (playerID,)
         )
         comments = cursor.fetchall()
         cursor.close()
@@ -149,8 +149,10 @@ def add_player_comment(playerID):
     try:
         data = request.get_json()
 
-        if "comment" not in data:
-            return jsonify({"error": "Missing required field: comment"}), 400
+        required_fields = ["text", "commenterID"]
+        for field in required_fields:
+            if field not in data:
+                return jsonify({"error": f"Missing required field: {field}"}), 400
 
         cursor = db.get_db().cursor()
 
@@ -159,10 +161,10 @@ def add_player_comment(playerID):
             return jsonify({"error": "Player not found"}), 404
 
         query = """
-        INSERT INTO PlayerComments (playerID, comment)
-        VALUES (%s, %s)
+        INSERT INTO Comment (text, dateTime, commenterID, targetID)
+        VALUES (%s, NOW(), %s, %s)
         """
-        cursor.execute(query, (playerID, data["comment"]))
+        cursor.execute(query, (data["text"], data["commenterID"], playerID))
         db.get_db().commit()
         cursor.close()
 
@@ -170,7 +172,41 @@ def add_player_comment(playerID):
 
     except Error as e:
         return jsonify({"error": str(e)}), 500
-    
+
+# Delete a comment for a specific player
+@players.route("/<int:playerID>/comments", methods=["DELETE"])
+def delete_player_comment(playerID):
+    try:
+        data = request.get_json()
+
+        if "commentID" not in data:
+            return jsonify({"error": "Missing required field: commentID"}), 400
+
+        cursor = db.get_db().cursor()
+
+        cursor.execute("SELECT * FROM Players WHERE playerID = %s", (playerID,))
+        if not cursor.fetchone():
+            return jsonify({"error": "Player not found"}), 404
+
+        cursor.execute(
+            "SELECT * FROM Comment WHERE commentID = %s AND targetID = %s",
+            (data["commentID"], playerID),
+        )
+        if not cursor.fetchone():
+            return jsonify({"error": "Comment not found"}), 404
+
+        cursor.execute(
+            "DELETE FROM Comment WHERE commentID = %s AND targetID = %s",
+            (data["commentID"], playerID),
+        )
+        db.get_db().commit()
+        cursor.close()
+
+        return jsonify({"message": "Comment deleted successfully"}), 200
+
+    except Error as e:
+        return jsonify({"error": str(e)}), 500
+
 # Return list of all injuries for a specific player
 @players.route("/<int:playerID>/injuries", methods=["GET"])
 def get_player_injuries(playerID):
