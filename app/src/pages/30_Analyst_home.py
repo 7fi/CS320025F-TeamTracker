@@ -11,17 +11,18 @@ SideBarLinks()
 
 st.title(f"Welcome {st.session_state['first_name']}!")
 st.write('')
-st.write('')
-st.write('### What would you like to do today?')
 
-if st.button('View my profile', 
+if st.button('View Team Statistics',
              type='primary',
              use_container_width=True):
-  st.switch_page('pages/30_Analyst_profile.py')
+    st.switch_page('pages/32_Analyst_team_stats.py')
 
-if st.button('View my team', 
+if st.button('View Team Injuries',
              type='primary',
              use_container_width=True):
-    st.switch_page('pages/50_Team_page.py')
+    st.switch_page('pages/33_Analyst_team_injuries.py')
 
-st.write("Add upcoming events here?")
+if st.button('View / Add Comments to Players',
+             type='primary',
+             use_container_width=True):
+    st.switch_page('pages/34_Analyst_comment.py')
