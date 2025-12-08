@@ -43,6 +43,16 @@ def AnalystHomePageNav():
 def AnalystProfilePageNav():
     st.sidebar.page_link("pages/31_Analyst_profile.py", label='Profile', icon="👤")
     
+# ---- Admin ----
+
+def AdminHomePageNav():
+    st.sidebar.page_link("pages/40_Admin_home.py", label='Home', icon="🏠")
+    
+
+def AdminHomePageNa2v():
+    st.sidebar.page_link("pages/40_Admin_home.py", label='Home', icon="🏠")
+    
+    
 
 def SideBarLinks(show_home=False):
     """
@@ -80,6 +90,12 @@ def SideBarLinks(show_home=False):
             AnalystHomePageNav()
             AnalystProfilePageNav()
             TeamNav()
+
+            
+        if st.session_state['role'] == 'admin':
+            AdminHomePageNav()
+            TeamNav()
+            
 
     # Always show the About page at the bottom of the list of links
     AboutPageNav()
