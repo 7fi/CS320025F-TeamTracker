@@ -4,7 +4,7 @@
 
 TeamTracker is a **data-driven backend service** designed to support college soccer teams in managing rosters, events, attendance, performance statistics, injuries, strategies, and team communication—all in one platform.
 
-This project was built as part of **CS3200 – Databases** at Northeastern University (Fall 2025).
+This project was built as part of **CS3200 – Introduction to Databases** at Northeastern University (Fall 2025).
 
 The backend exposes a REST API which supports the main user personas—**Player**, **Coach**, **Analyst**, and **Team Admin**—and implements CRUD operations and data retrieval required by the system user stories.
 
