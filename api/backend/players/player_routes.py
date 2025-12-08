@@ -38,7 +38,7 @@ def create_player():
 
         query = """
         INSERT INTO Players (name, teamID, position, jerseyNumber, phoneNumber, gradYear)
-        VALUES (%s, %s, %s, %s, %s)
+        VALUES (%s, %s, %s, %s, %s, %s)
         """
         cursor.execute(
             query,

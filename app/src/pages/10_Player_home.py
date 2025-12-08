@@ -32,7 +32,6 @@ if st.button('View my stats',
   st.switch_page('pages/12_Player_stats.py')
 
 
-
 events = requests.get(f"http://web-api:4000/events/player/{st.session_state['userID']}")
 events = events.json()
 logger.info(events)

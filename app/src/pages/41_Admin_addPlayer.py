@@ -101,5 +101,5 @@ if st.session_state.show_success_modal:
     show_success_dialog(st.session_state.success_ngo_name)
 
 # Add a button to return to the Player Directory
-if st.button("Return to Player Directory"):
+if st.button("Return to Admin Home"):
     st.switch_page("pages/40_Admin_home.py")

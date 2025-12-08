@@ -4,17 +4,16 @@
 
 import streamlit as st
 
-
 #### ------------------------ General ------------------------
 def HomeNav():
     st.sidebar.page_link("Home.py", label="Home", icon="🏠")
-
 
 def AboutPageNav():
     st.sidebar.page_link("pages/60_About.py", label="About", icon="🧠")
 
 def TeamNav():
     st.sidebar.page_link("pages/50_Team_page.py", label='Team', icon="👥")
+
 ### ------ Player Role ------
 
 def PlayerHomePageNav():
@@ -25,7 +24,7 @@ def ProfilePageNav():
     
 def PlayerStatsNav():
     st.sidebar.page_link("pages/12_Player_stats.py", label='Stats', icon="📈")
-    
+
 
 # ---- Coach --------
 
