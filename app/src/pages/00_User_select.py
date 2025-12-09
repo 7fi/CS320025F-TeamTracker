@@ -63,7 +63,7 @@ selected_name = st.selectbox(
     placeholder="Select a coach..."
 )
 
-if st.button("Select coach", type="primary", use_container_width=True):
+if st.button("Select Coach", type="primary", use_container_width=True):
     if selected_name is None:
         st.warning("Please select a coach.")
     else:
@@ -90,7 +90,7 @@ selected_name = st.selectbox(
     placeholder="Select a analyst..."
 )
 
-if st.button("Select analyst", type="primary", use_container_width=True):
+if st.button("Select Analyst", type="primary", use_container_width=True):
     if selected_name is None:
         st.warning("Please select a analyst.")
     else:
@@ -117,7 +117,7 @@ selected_name = st.selectbox(
     placeholder="Select a admin..."
 )
 
-if st.button("Select admin", type="primary", use_container_width=True):
+if st.button("Select Admin", type="primary", use_container_width=True):
     if selected_name is None:
         st.warning("Please select a admin.")
     else:

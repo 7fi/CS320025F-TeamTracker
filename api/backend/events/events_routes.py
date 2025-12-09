@@ -206,7 +206,7 @@ def get_next_events_for_player(playerID):
             FROM Event e
             JOIN PlayerEvent pe ON e.eventID = pe.eventID
             WHERE pe.playerID = %s
-              AND e.dateTime >= NOW()
+            #   AND e.dateTime >= NOW()
             ORDER BY e.dateTime ASC;
         """
 

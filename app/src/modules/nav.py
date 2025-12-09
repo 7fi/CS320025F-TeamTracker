@@ -49,6 +49,13 @@ def AnalystHomePageNav():
 def AnalystProfilePageNav():
     st.sidebar.page_link("pages/31_Analyst_profile.py", label='Profile', icon="👤")
     
+def AnalystInjuriesNav():
+    st.sidebar.page_link("pages/33_Analyst_team_injuries.py", label='Injuries', icon="🤕")
+    
+def AnalystCommentsNav():
+    st.sidebar.page_link("pages/34_Analyst_comment.py", label='Comments', icon="💬")
+    
+    
 # ---- Admin ----
 
 def AdminHomePageNav():
@@ -100,6 +107,8 @@ def SideBarLinks(show_home=False):
             AnalystHomePageNav()
             AnalystProfilePageNav()
             CoachStatNav()
+            AnalystInjuriesNav()
+            AnalystCommentsNav()
             TeamNav()
             
         if st.session_state['role'] == 'admin':

@@ -9,7 +9,7 @@ st.set_page_config(layout = 'wide')
 # Show appropriate sidebar links for the role of the currently logged in user
 SideBarLinks()
 
-st.title(f"Welcome {st.session_state['first_name']}!")
+st.title(f"Welcome Analyst {st.session_state['first_name']}!")
 st.write('')
 
 if st.button('View Team Statistics',
