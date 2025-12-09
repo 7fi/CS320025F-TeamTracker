@@ -15,14 +15,14 @@ st.write('')
 if st.button('View Team Statistics',
              type='primary',
              use_container_width=True):
-    st.switch_page('pages/32_Analyst_team_stats.py')
+    st.switch_page('pages/32_Analyst_team_stats.py') ## redirection to team statistics page
 
 if st.button('View Team Injuries',
              type='primary',
              use_container_width=True):
-    st.switch_page('pages/33_Analyst_team_injuries.py')
+    st.switch_page('pages/33_Analyst_team_injuries.py') ## redirection to team injuries page
 
 if st.button('View / Add Comments to Players',
              type='primary',
              use_container_width=True):
-    st.switch_page('pages/34_Analyst_comment.py')
+    st.switch_page('pages/34_Analyst_comment.py') ## redirection to comments page

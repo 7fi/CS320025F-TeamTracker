@@ -12,22 +12,22 @@ SideBarLinks()
 st.title(f"Welcome Admin {st.session_state['first_name']}!")
 st.write('')
 st.write('')
-st.write('### What would you like to do today?')
+st.write('### What would you like to do today?') 
 
 if st.button('Add A Player', 
              type='primary',
              use_container_width=True):
-  st.switch_page('pages/41_Admin_addPlayer.py')
+  st.switch_page('pages/41_Admin_addPlayer.py') ## redirection to add player page
 
 if st.button('Add Stat', 
              type='primary',
              use_container_width=True):
-    st.switch_page('pages/42_Admin_stats.py')
+    st.switch_page('pages/42_Admin_stats.py') ## redirection to add stat page
 
 if st.button('Add Event', 
              type='primary',
              use_container_width=True):
-    st.switch_page('pages/43_Admin_EventCreation.py')
+    st.switch_page('pages/43_Admin_EventCreation.py') ## redirection to add event page
 
 if st.button('View/Edit the team', 
              type='primary',
