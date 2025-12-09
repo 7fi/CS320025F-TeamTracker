@@ -1,6 +1,4 @@
-# Fall 2025 CS 3200 Project 
-
-# TeamTracker – Backend API
+# Fall 2025 CS 3200 Project TeamTracker
 
 TeamTracker is a **data-driven backend service** designed to support college soccer teams in managing rosters, events, attendance, performance statistics, injuries, strategies, and team communication—all in one platform.
 
@@ -13,6 +11,7 @@ The backend exposes a REST API which supports the main user personas—**Player*
 ## Features
 
 ### TeamTracker enables:
+
 - Creating teams, players, coaches, and admins
 - Scheduling events (games, practices, meetings)
 - RSVP tracking per event
@@ -22,6 +21,7 @@ The backend exposes a REST API which supports the main user personas—**Player*
 - Comments & coaching feedback
 
 ### User Personas
+
 - **Players** – view schedule, RSVP, review stats & injuries
 - **Coaches** – analyze lineup, coaching feedback, team trends
 - **Analysts** – statistics, comments, and data insights
@@ -29,20 +29,10 @@ The backend exposes a REST API which supports the main user personas—**Player*
 
 ---
 
-## Tech Stack
-
-- Python
-- Flask
-- MySQL
-- Docker + Docker Compose
-- REST API
-- SQL schemas executed automatically on startup
-
----
-
 ## Getting Started
 
 ### Requirements
+
 - Docker Desktop
 - Git
 
@@ -78,16 +68,17 @@ docker compose up -d
 ```
 
 This automatically:
-- starts MySQL
-- builds the DB
-- executes schema + bootstrap SQL
+
+- starts MySQL and builds DB
 - starts Flask API
+- starts Streamlit frontend
 
-### 4. Confirm backend is running
+### Shutdown
 
-Open:
-```
-http://localhost:4000/
+Stop containers:
+
+```sh
+docker compose down
 ```
 
 ---
@@ -97,6 +88,7 @@ http://localhost:4000/
 REST endpoints follow the API spec matrix.
 
 Example routes:
+
 ```
 /team/{teamID}
 /events/{eventID}
@@ -108,61 +100,18 @@ Example routes:
 
 ---
 
-## Project Structure
+## Team Members
 
-```
-api/
-  backend/
-    routes/
-    db_connection.py
-  .env.template
-docker-compose.yml
-```
-
----
-
-## Team Members — Team BETAS
-
-| Name |
-|-------|
-| Carter Anderson |
-| Naanlong Clement Baba | 
-| Marc Sawaya | 
-| Sebastian Tutos-Zub | 
-| Freddy Elyas | 
-
----
-
-## Development Notes
-
-Stop containers:
-```sh
-docker compose down
-```
-
-Rebuild:
-```sh
-docker compose down
-docker compose up --build -d
-```
-
----
-
-## Status
-- Dockerized
-- REST routes completed
-- SQL schemas executed automatically
-- .env based config
-
----
-
-## Future Enhancements
-- Authentication
-- Front-End UI
-- Email notifications
-- Analytics dashboards
+| Name                                  |
+| ------------------------------------- |
+| Carter Anderson                       |
+| Marc Sawaya                           |
+| Sebastian Tutos-Zub                   |
+| Freddy Elyas                          |
+| Naanlong Clement Baba (dropped class) |
 
 ---
 
 ## Acknowledgements
+
 Built for **CS3200 – Introduction to Databases**, Fall 2025, Northeastern University.
